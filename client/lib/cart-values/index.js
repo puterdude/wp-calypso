@@ -14,6 +14,9 @@ import config from 'config';
  */
 import cartItems from './cart-items';
 import productsValues from 'lib/products-values';
+import { reduxGetState } from 'lib/redux-bridge';
+import getPaymentCountryCode from 'state/selectors/get-payment-country-code';
+import getPaymentPostalCode from 'state/selectors/get-payment-postal-code';
 
 // #tax-on-checout-placeholder
 import { injectTaxStateWithPlaceholderValues } from 'lib/tax';
@@ -59,13 +62,21 @@ function preprocessCartForServer( {
 	);
 	const urlCoupon = needsUrlCoupon ? url.parse( document.URL, true ).query.coupon : '';
 
+	// Bridge redux state until we move the cart store to redux
+	const reduxState = reduxGetState();
+	const reduxTaxLocation = {
+		country_code: getPaymentCountryCode( reduxState ),
+		postal_code: getPaymentPostalCode( reduxState ),
+	};
+	const combinedTax = reduxState ? { ...tax, location: reduxTaxLocation } : tax;
+
 	return Object.assign(
 		{
 			coupon,
 			is_coupon_applied,
 			is_coupon_removed,
 			currency,
-			tax: injectTaxStateWithPlaceholderValues( tax ), // #tax-on-checkout-placeholder
+			tax: injectTaxStateWithPlaceholderValues( combinedTax ), // #tax-on-checkout-placeholder
 			temporary,
 			extra,
 			products: products.map(
