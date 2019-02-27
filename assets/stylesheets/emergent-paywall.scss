@@ -67,7 +67,7 @@ textarea {
 
 	a,
 	a:visited {
-		color: $blue-wordpress;
+		color: var( --color-primary );
 		text-decoration: none;
 	}
 
@@ -328,7 +328,7 @@ textarea {
 		// Back link
 		a.btn-block {
 			float: right;
-			color: $blue-wordpress;
+			color: var( --color-primary );
 			cursor: pointer;
 			margin-top: 16px;
 
