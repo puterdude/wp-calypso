@@ -117,7 +117,7 @@ function getQueryObject( props ) {
 		quantity: SUGGESTION_QUANTITY,
 		vendor: props.vendor,
 		includeSubdomain: props.includeWordPressDotCom || props.includeDotBlogSubdomain,
-		surveyVertical: props.surveyVertical,
+		verticalId: props.verticalId,
 	};
 }
 
@@ -132,7 +132,7 @@ class RegisterDomainStep extends React.Component {
 		suggestion: PropTypes.string,
 		domainsWithPlansOnly: PropTypes.bool,
 		isSignupStep: PropTypes.bool,
-		surveyVertical: PropTypes.string,
+		verticalId: PropTypes.string,
 		includeWordPressDotCom: PropTypes.bool,
 		includeDotBlogSubdomain: PropTypes.bool,
 		showExampleSuggestions: PropTypes.bool,
@@ -167,17 +167,14 @@ class RegisterDomainStep extends React.Component {
 		if ( props.initialState ) {
 			this.state = { ...this.state, ...props.initialState };
 
-			if (
-				this.state.lastSurveyVertical &&
-				this.state.lastSurveyVertical !== props.surveyVertical
-			) {
+			if ( this.state.lastVerticalId && this.state.lastVerticalId !== props.verticalId ) {
 				this.state.loadingResults = true;
 
 				if ( props.includeWordPressDotCom || props.includeDotBlogSubdomain ) {
 					this.state.loadingSubdomainResults = true;
 				}
 
-				delete this.state.lastSurveyVertical;
+				delete this.state.lastVerticalId;
 			}
 
 			if ( props.suggestion ) {
@@ -743,7 +740,7 @@ class RegisterDomainStep extends React.Component {
 			include_dotblogsubdomain: false,
 			tld_weight_overrides: getTldWeightOverrides( this.props.designType ),
 			vendor: this.props.vendor,
-			vertical: this.props.surveyVertical,
+			vertical: this.props.verticalId,
 			recommendation_context: get( this.props, 'selectedSite.name', '' )
 				.replace( ' ', ',' )
 				.toLocaleLowerCase(),
@@ -841,7 +838,7 @@ class RegisterDomainStep extends React.Component {
 			include_dotblogsubdomain: this.props.includeDotBlogSubdomain,
 			tld_weight_overrides: null,
 			vendor: 'dot',
-			vertical: this.props.surveyVertical,
+			vertical: this.props.verticalId,
 			...this.getActiveFiltersForAPI(),
 		};
 
@@ -915,7 +912,7 @@ class RegisterDomainStep extends React.Component {
 		this.setState(
 			{
 				lastQuery: searchQuery,
-				lastSurveyVertical: this.props.surveyVertical,
+				lastVerticalId: this.props.verticalId,
 				lastFilters: this.state.filters,
 			},
 			this.save

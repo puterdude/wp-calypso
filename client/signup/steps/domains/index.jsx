@@ -21,7 +21,7 @@ import { getStepUrl } from 'signup/utils';
 import StepWrapper from 'signup/step-wrapper';
 import { cartItems } from 'lib/cart-values';
 import { DOMAINS_WITH_PLANS_ONLY } from 'state/current-user/constants';
-import { getSurveyVertical } from 'state/signup/steps/survey/selectors.js';
+import { getSiteVerticalId } from 'state/signup/steps/site-vertical/selectors';
 import { getUsernameSuggestion } from 'lib/signup/step-actions';
 import {
 	recordAddDomainButtonClick,
@@ -366,7 +366,7 @@ class DomainsStep extends React.Component {
 				includeDotBlogSubdomain={ this.shouldIncludeDotBlogSubdomain() }
 				isSignupStep
 				showExampleSuggestions
-				surveyVertical={ this.props.surveyVertical }
+				verticalId={ this.props.verticalId }
 				suggestion={ initialQuery }
 				designType={ this.getDesignType() }
 				vendor={ getSuggestionsVendor() }
@@ -579,7 +579,7 @@ export default connect(
 			productsList,
 			productsLoaded,
 			siteGoals: getSiteGoals( state ),
-			surveyVertical: getSurveyVertical( state ),
+			verticalId: getSiteVerticalId( state ),
 		};
 	},
 	{
