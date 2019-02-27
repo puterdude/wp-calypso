@@ -333,7 +333,7 @@ textarea {
 			margin-top: 16px;
 
 			&:hover {
-				color: mix( white, $blue-medium, 20 );
+				color: var( --color-primary-light );
 			}
 		}
 
@@ -368,11 +368,11 @@ textarea {
 
 			&.btn-primary {
 				background: var( --color-primary );
-				border-color: darken( $blue-medium, 8% );
+				border-color: var( --color-primary-400 );
 				color: $white;
 
 				&:hover {
-					border-color: $blue-dark;
+					border-color: var( --color-primary-dark );
 				}
 			}
 		}
