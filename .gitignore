@@ -28,6 +28,7 @@ test-results*.xml
 
 /build
 
+/public/*.html
 /public/*.js
 /public/*.js.map
 /public/*.css
