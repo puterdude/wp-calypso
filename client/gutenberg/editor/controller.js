@@ -165,6 +165,8 @@ export const post = ( context, next ) => {
 	const duplicatePostId = isInteger( jetpackCopy ) ? jetpackCopy : null;
 
 	if ( config.isEnabled( 'calypsoify/iframe' ) ) {
+		const pressThis = getPressThisData( context.query );
+
 		context.primary = (
 			<CalypsoifyIframe
 				postId={ postId }
